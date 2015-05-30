@@ -4,29 +4,20 @@ import ganymedes01.ganyssurface.configuration.ConfigurationHandler;
 import ganymedes01.ganyssurface.core.handlers.FuelHandler;
 import ganymedes01.ganyssurface.core.handlers.InterModComms;
 import ganymedes01.ganyssurface.core.proxy.CommonProxy;
-import ganymedes01.ganyssurface.core.utils.Utils;
 import ganymedes01.ganyssurface.creativetab.CreativeTabSurface;
 import ganymedes01.ganyssurface.integration.ModIntegrator;
 import ganymedes01.ganyssurface.items.Quiver;
 import ganymedes01.ganyssurface.lib.Reference;
 import ganymedes01.ganyssurface.network.PacketHandler;
 import ganymedes01.ganyssurface.recipes.ModRecipes;
+import ganymedes01.ganyssurface.world.OceanMonument;
 import ganymedes01.ganyssurface.world.SurfaceWorldGen;
-import ganymedes01.ganyssurface.world.Temple;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirt;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.IRecipe;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -101,16 +92,24 @@ public class GanysSurface {
 	public static boolean enableSlowRail = true;
 	public static boolean enableBasalt = true;
 	public static boolean enableFlingablePoop = true;
+	public static boolean enableBurnableBlocks = true;
+	public static boolean enableWoodenButtons = true;
+	public static boolean enableWoodenPressurePlates = true;
+	public static boolean enableWoodenTrapdoors = true;
+	public static boolean enableBeetroots = true;
+	public static boolean enableWoodenLadders = true;
+	public static boolean enableWoodenSigns = true;
+	public static boolean enableWoodenBookshelves = true;
+	public static boolean enableStorageBlocks = true;
+	public static boolean enableDyeBlocks = true;
 
 	public static int maxLevelOMCWorks = 15;
 	public static int inkHarvesterMaxStrike = 5;
 	public static int poopingChance = 15000;
-	public static int noDespawnRadius = 0;
 
 	public static boolean enable18Stones = true;
 	public static boolean enableIronTrapdoor = true;
 	public static boolean enableMutton = true;
-	public static boolean enableSpongeTexture = true;
 	public static boolean enablePrismarineStuff = true;
 	public static boolean enableDispenserShears = true;
 	public static boolean enableDoors = true;
@@ -120,11 +119,12 @@ public class GanysSurface {
 	public static boolean enable18Enchants = true;
 	public static boolean enableFences = true;
 	public static boolean enableSilkTouchingMushrooms = true;
-	public static int prismarineTempleChance = 800;
+	public static boolean enableBanners = true;
+	public static boolean enableSponge = true;
+
 	public static int max18StonesPerCluster = 33;
 
 	@EventHandler
-	@SuppressWarnings("unchecked")
 	public void preInit(FMLPreInitializationEvent event) {
 		ModIntegrator.preInit();
 
@@ -135,54 +135,7 @@ public class GanysSurface {
 		ModBlocks.init();
 		ModItems.init();
 
-		List<IRecipe> doorRecipes = new ArrayList<IRecipe>();
-		if (enableDoors) {
-			Items.wooden_door.setMaxStackSize(64);
-			Items.iron_door.setMaxStackSize(64);
-			Items.wooden_door.setTextureName(Utils.getItemTexture("door_wood"));
-			Items.iron_door.setTextureName(Utils.getItemTexture("door_iron"));
-
-			for (IRecipe recipe : (List<IRecipe>) CraftingManager.getInstance().getRecipeList())
-				if (recipe != null) {
-					ItemStack stack = recipe.getRecipeOutput();
-					if (stack != null)
-						if (stack.getItem() == Items.iron_door || stack.getItem() == Items.wooden_door) {
-							stack.stackSize = 3;
-							doorRecipes.add(recipe);
-						}
-				}
-
-			for (IRecipe recipe : doorRecipes)
-				CraftingManager.getInstance().getRecipeList().remove(recipe);
-		}
-
-		ModRecipes.init();
-		Temple.makeMap();
-		BlockDirt.field_150009_a[1] = "coarse";
-
-		if (enableDoors)
-			CraftingManager.getInstance().getRecipeList().addAll(doorRecipes);
-
-		if (enableChests)
-			removeFirstRecipeFor(Blocks.chest);
-
-		if (enableFences) {
-			removeFirstRecipeFor(Blocks.fence);
-			removeFirstRecipeFor(Blocks.fence_gate);
-			Blocks.fence.setCreativeTab(null);
-			Blocks.fence_gate.setCreativeTab(null);
-		}
-	}
-
-	private void removeFirstRecipeFor(Block block) {
-		for (Object recipe : CraftingManager.getInstance().getRecipeList())
-			if (recipe != null) {
-				ItemStack stack = ((IRecipe) recipe).getRecipeOutput();
-				if (stack != null && stack.getItem() == Item.getItemFromBlock(block)) {
-					CraftingManager.getInstance().getRecipeList().remove(recipe);
-					return;
-				}
-			}
+		OceanMonument.makeMap();
 	}
 
 	@EventHandler
@@ -192,6 +145,7 @@ public class GanysSurface {
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 
 		GameRegistry.registerFuelHandler(new FuelHandler());
+		ModRecipes.init();
 
 		proxy.registerEvents();
 		proxy.registerTileEntities();

@@ -1,5 +1,7 @@
 package ganymedes01.ganyssurface.items;
 
+import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.IConfigurable;
 import ganymedes01.ganyssurface.ModItems;
 import ganymedes01.ganyssurface.core.utils.Utils;
 import ganymedes01.ganyssurface.lib.Strings;
@@ -14,16 +16,16 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * Gany's Surface
- * 
+ *
  * @author ganymedes01
- * 
+ *
  */
 
-public class StorageCase extends Item {
+public class StorageCase extends Item implements IConfigurable {
 
 	public StorageCase() {
 		setTextureName(Utils.getItemTexture(Strings.STORAGE_CASE_NAME));
-		setUnlocalizedName(Utils.getUnlocalizedName(Strings.STORAGE_CASE_NAME));
+		setUnlocalizedName(Utils.getUnlocalisedName(Strings.STORAGE_CASE_NAME));
 	}
 
 	@Override
@@ -76,5 +78,10 @@ public class StorageCase extends Item {
 		if (s != null)
 			return String.format(name, s.getDisplayName());
 		return String.format(name, "Empty");
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return GanysSurface.enableEncasers;
 	}
 }

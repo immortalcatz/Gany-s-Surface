@@ -1,6 +1,7 @@
 package ganymedes01.ganyssurface.blocks;
 
 import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.IConfigurable;
 import ganymedes01.ganyssurface.core.utils.Utils;
 import ganymedes01.ganyssurface.lib.Strings;
 import net.minecraft.block.BlockFalling;
@@ -16,13 +17,13 @@ import net.minecraft.world.World;
  *
  */
 
-public class Cushion extends BlockFalling {
+public class Cushion extends BlockFalling implements IConfigurable {
 
 	public Cushion() {
 		super(Material.cloth);
 		setHardness(0.2F);
 		setStepSound(soundTypeCloth);
-		setBlockName(Utils.getUnlocalizedName(Strings.CUSHION_NAME));
+		setBlockName(Utils.getUnlocalisedName(Strings.CUSHION_NAME));
 		setBlockTextureName(Utils.getBlockTexture(Strings.CUSHION_NAME));
 		setCreativeTab(GanysSurface.enableCushion ? GanysSurface.surfaceTab : null);
 	}
@@ -38,5 +39,10 @@ public class Cushion extends BlockFalling {
 			entity.fallDistance -= 20.0F;
 		else
 			entity.fallDistance = 0.0F;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return GanysSurface.enableCushion;
 	}
 }

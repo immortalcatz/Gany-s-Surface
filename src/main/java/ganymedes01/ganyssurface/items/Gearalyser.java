@@ -1,6 +1,7 @@
 package ganymedes01.ganyssurface.items;
 
 import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.IConfigurable;
 import ganymedes01.ganyssurface.core.utils.Utils;
 import ganymedes01.ganyssurface.lib.GUIsID;
 import ganymedes01.ganyssurface.lib.Strings;
@@ -16,12 +17,12 @@ import net.minecraft.world.World;
  *
  */
 
-public class Gearalyser extends Item {
+public class Gearalyser extends Item implements IConfigurable {
 
 	public Gearalyser() {
 		setMaxStackSize(1);
 		setTextureName(Utils.getItemTexture(Strings.GEARALYSER_NAME));
-		setUnlocalizedName(Utils.getUnlocalizedName(Strings.GEARALYSER_NAME));
+		setUnlocalizedName(Utils.getUnlocalisedName(Strings.GEARALYSER_NAME));
 		setCreativeTab(GanysSurface.enableAnalisers ? GanysSurface.surfaceTab : null);
 	}
 
@@ -30,5 +31,10 @@ public class Gearalyser extends Item {
 		if (!world.isRemote)
 			player.openGui(GanysSurface.instance, GUIsID.GEARALYSER, world, 0, 0, 0);
 		return stack;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return GanysSurface.enableAnalisers;
 	}
 }

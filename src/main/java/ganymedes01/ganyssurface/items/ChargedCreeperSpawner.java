@@ -1,6 +1,7 @@
 package ganymedes01.ganyssurface.items;
 
 import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.IConfigurable;
 import ganymedes01.ganyssurface.core.utils.Utils;
 import ganymedes01.ganyssurface.lib.Strings;
 import net.minecraft.block.Block;
@@ -28,7 +29,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  *
  */
 
-public class ChargedCreeperSpawner extends ItemSimpleFoiled {
+public class ChargedCreeperSpawner extends ItemSimpleFoiled implements IConfigurable {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon overlay;
@@ -36,7 +37,7 @@ public class ChargedCreeperSpawner extends ItemSimpleFoiled {
 	public ChargedCreeperSpawner() {
 		setTextureName("spawn_egg");
 		setCreativeTab(GanysSurface.enableSpawnEggs ? GanysSurface.surfaceTab : null);
-		setUnlocalizedName(Utils.getUnlocalizedName(Strings.CHARGED_CREEPER_SPAWNER_NAME));
+		setUnlocalizedName(Utils.getUnlocalisedName(Strings.CHARGED_CREEPER_SPAWNER_NAME));
 	}
 
 	public static Entity spawnCreeper(World world, double x, double y, double z) {
@@ -112,5 +113,10 @@ public class ChargedCreeperSpawner extends ItemSimpleFoiled {
 	@SideOnly(Side.CLIENT)
 	public int getColorFromItemStack(ItemStack stack, int pass) {
 		return pass == 0 ? 894731 : 0;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return GanysSurface.enableSpawnEggs;
 	}
 }

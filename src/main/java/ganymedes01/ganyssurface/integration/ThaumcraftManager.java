@@ -25,9 +25,9 @@ public class ThaumcraftManager extends Integration {
 			addAspectsToItem(ModItems.camelliaSeeds, new Aspect[] { Aspect.PLANT }, new int[] { 1 });
 			addAspectsToItem(ModItems.teaLeaves, new Aspect[] { Aspect.CROP }, new int[] { 1 });
 			addAspectsToItem(ModItems.mankyCupOfTea, new Aspect[] { Aspect.POISON, Aspect.DEATH }, new int[] { 2, 1 });
-			addAspectsToItem(ModItems.teaBag, new Aspect[] { Aspect.CROP, Aspect.CLOTH }, new int[] { 1, 1 }); 
+			addAspectsToItem(ModItems.teaBag, new Aspect[] { Aspect.CROP, Aspect.CLOTH }, new int[] { 1, 1 });
 			addAspectsToItem(ModItems.cupOfTea, new Aspect[] { Aspect.CROP, Aspect.HUNGER, Aspect.WATER, Aspect.HEAL, Aspect.EARTH }, new int[] { 1, 2, 2, 2, 3 });
-			addAspectsToItem(ModItems.emptyMug, new Aspect[] { Aspect.EARTH }, new int[] { 3 }); 
+			addAspectsToItem(ModItems.emptyMug, new Aspect[] { Aspect.EARTH }, new int[] { 3 });
 		}
 		if (GanysSurface.enablePoop) {
 			addAspectsToItem(ModItems.poop, new Aspect[] { Aspect.SLIME }, new int[] { 2 });
@@ -43,7 +43,7 @@ public class ThaumcraftManager extends Integration {
 		if (GanysSurface.enableCookedEgg)
 			addAspectsToItem(ModItems.cookedEgg, new Aspect[] { Aspect.HUNGER, Aspect.LIFE, Aspect.BEAST }, new int[] { 1, 1, 1 });
 		if (GanysSurface.enableChocolate)
-			addAspectsToItem(ModItems.chocolateBar, new Aspect[] { Aspect.HUNGER, Aspect.SENSES }, new int[] { 2, 1 }); 
+			addAspectsToItem(ModItems.chocolateBar, new Aspect[] { Aspect.HUNGER, Aspect.SENSES }, new int[] { 2, 1 });
 		if (GanysSurface.enablePineCones) {
 			addAspectsToItem(ModItems.pineCone, new Aspect[] { Aspect.CROP, Aspect.PLANT }, new int[] { 2, 1 });
 			addAspectsToItem(ModItems.pineNuts, new Aspect[] { Aspect.CROP, Aspect.HUNGER }, new int[] { 2, 1 });
@@ -56,35 +56,25 @@ public class ThaumcraftManager extends Integration {
 			addAspectsToItem(ModItems.horseSpawner, new Aspect[] { Aspect.SOUL, Aspect.TRAP }, new int[] { 1, 1 });
 			addAspectsToItem(ModItems.chargedCreeperSpawner, new Aspect[] { Aspect.SOUL, Aspect.TRAP }, new int[] { 1, 1 });
 		}
-		if (GanysSurface.enableChests) {
-			addAspectsToItem(ModBlocks.chestAcacia, new Aspect[] { Aspect.TREE, Aspect.VOID }, new int[] { 6, 4 });
-			addAspectsToItem(ModBlocks.chestBirch, new Aspect[] { Aspect.TREE, Aspect.VOID }, new int[] { 6, 4 });
-			addAspectsToItem(ModBlocks.chestDarkOak, new Aspect[] { Aspect.TREE, Aspect.VOID }, new int[] { 6, 4 });
-			addAspectsToItem(ModBlocks.chestJungle, new Aspect[] { Aspect.TREE, Aspect.VOID }, new int[] { 6, 4 });
-			addAspectsToItem(ModBlocks.chestOak, new Aspect[] { Aspect.TREE, Aspect.VOID }, new int[] { 6, 4 });
-			addAspectsToItem(ModBlocks.chestSpruce, new Aspect[] { Aspect.TREE, Aspect.VOID }, new int[] { 6, 4 });
-		}
+		if (GanysSurface.enableChests)
+			for (Block chest : ModBlocks.chests)
+				addAspectsToItem(chest, new Aspect[] { Aspect.TREE, Aspect.VOID }, new int[] { 6, 4 });
 		if (GanysSurface.enableDoors) {
-			addAspectsToItem(ModItems.doorAcacia, new Aspect[] { Aspect.TREE, Aspect.MOTION, Aspect.MECHANISM }, new int[] { 1, 1, 1 });
-			addAspectsToItem(ModItems.doorBirch, new Aspect[] { Aspect.TREE, Aspect.MOTION, Aspect.MECHANISM }, new int[] { 1, 1, 1 });
-			addAspectsToItem(ModItems.doorDarkOak, new Aspect[] { Aspect.TREE, Aspect.MOTION, Aspect.MECHANISM }, new int[] { 1, 1, 1 });
-			addAspectsToItem(ModItems.doorJungle, new Aspect[] { Aspect.TREE, Aspect.MOTION, Aspect.MECHANISM }, new int[] { 1, 1, 1 });
-			addAspectsToItem(ModItems.doorSpruce, new Aspect[] { Aspect.TREE, Aspect.MOTION, Aspect.MECHANISM }, new int[] { 1, 1, 1 });
+			for (Item door : ModItems.doors)
+				addAspectsToItem(door, new Aspect[] { Aspect.TREE, Aspect.MOTION, Aspect.MECHANISM }, new int[] { 1, 1, 1 });
+			for (Block door : ModBlocks.doors)
+				addAspectsToItem(door, new Aspect[] { Aspect.TREE, Aspect.MOTION, Aspect.MECHANISM }, new int[] { 1, 1, 1 });
 		}
 		if (GanysSurface.enableDisguisedTrapdoors)
-			for (int i=0; i < ModBlocks.disguisedTrapDoor.length; i++)
-				addAspectsToItem(ModBlocks.disguisedTrapDoor[i], new Aspect[] { Aspect.TREE, Aspect.MOTION }, new int[] { 2, 1 });
+			for (Block trapdoor : ModBlocks.disguisedTrapdoors)
+				addAspectsToItem(trapdoor, new Aspect[] { Aspect.TREE, Aspect.MOTION }, new int[] { 2, 1 });
 		if (GanysSurface.enableIronTrapdoor)
 			addAspectsToItem(ModBlocks.ironTrapdoor, new Aspect[] { Aspect.METAL, Aspect.MOTION }, new int[] { 4, 1 });
-		if (GanysSurface.enableFences) {
-			addAspectsToItem(ModBlocks.gateAcacia, new Aspect[] { Aspect.TREE, Aspect.TRAVEL, Aspect.MECHANISM }, new int[] { 4, 1, 1 });
-			addAspectsToItem(ModBlocks.gateBirch, new Aspect[] { Aspect.TREE, Aspect.TRAVEL, Aspect.MECHANISM }, new int[] { 4, 1, 1 });
-			addAspectsToItem(ModBlocks.gateDarkOak, new Aspect[] { Aspect.TREE, Aspect.TRAVEL, Aspect.MECHANISM }, new int[] { 4, 1, 1 });
-			addAspectsToItem(ModBlocks.gateJungle, new Aspect[] { Aspect.TREE, Aspect.TRAVEL, Aspect.MECHANISM }, new int[] { 4, 1, 1 });
-			addAspectsToItem(ModBlocks.gateSpruce, new Aspect[] { Aspect.TREE, Aspect.TRAVEL, Aspect.MECHANISM }, new int[] { 4, 1, 1 });
-		}
+		if (GanysSurface.enableFences)
+			for (Block gate : ModBlocks.gates)
+				addAspectsToItem(gate, new Aspect[] { Aspect.TREE, Aspect.TRAVEL, Aspect.MECHANISM }, new int[] { 4, 1, 1 });
 		if (GanysSurface.enable18Stones)
-			for (int i=1; i <= 6; i++)
+			for (int i = 1; i <= 6; i++)
 				addAspectsToItem(ModBlocks.newStones, i, new Aspect[] { Aspect.EARTH }, new int[] { 2 });
 		if (GanysSurface.enableBasalt) {
 			addAspectsToItem(ModBlocks.basalt, new Aspect[] { Aspect.EARTH }, new int[] { 2 });
@@ -95,13 +85,13 @@ public class ThaumcraftManager extends Integration {
 			addAspectsToItem(ModBlocks.redSandstone, 1, new Aspect[] { Aspect.ENTROPY, Aspect.EARTH, Aspect.MAGIC }, new int[] { 3, 2, 1 });
 			addAspectsToItem(ModBlocks.redSandstone, 2, new Aspect[] { Aspect.ENTROPY, Aspect.EARTH, Aspect.ORDER }, new int[] { 3, 2, 1 });
 		}
-		if (GanysSurface.enableSlimeBlock) 
+		if (GanysSurface.enableSlimeBlock)
 			addAspectsToItem(ModBlocks.slimeBlock, new Aspect[] { Aspect.SLIME }, new int[] { 12 });
 		if (GanysSurface.enableSlowRail)
 			addAspectsToItem(ModBlocks.slowRail, new Aspect[] { Aspect.METAL, Aspect.ENERGY, Aspect.MECHANISM }, new int[] { 2, 1, 1 });
 		if (GanysSurface.enablePrismarineStuff) {
-			addAspectsToItem(ModItems.prismarineItems, 0, new Aspect[] { Aspect.CRYSTAL, Aspect.WATER }, new int[] { 1, 1 }); // Pure guessing 
-			addAspectsToItem(ModItems.prismarineItems, 1, new Aspect[] { Aspect.CRYSTAL, Aspect.WATER }, new int[] { 1, 1 }); // Should probably have something more
+			addAspectsToItem(ModItems.prismarineItems, 0, new Aspect[] { Aspect.CRYSTAL, Aspect.WATER }, new int[] { 1, 1 });
+			addAspectsToItem(ModItems.prismarineItems, 1, new Aspect[] { Aspect.CRYSTAL, Aspect.WATER }, new int[] { 1, 1 });
 			addAspectsToItem(ModBlocks.prismarineBlocks, 0, new Aspect[] { Aspect.CRYSTAL, Aspect.WATER }, new int[] { 2, 2 });
 			addAspectsToItem(ModBlocks.prismarineBlocks, 1, new Aspect[] { Aspect.CRYSTAL, Aspect.WATER }, new int[] { 6, 6 });
 			addAspectsToItem(ModBlocks.prismarineBlocks, 2, new Aspect[] { Aspect.CRYSTAL, Aspect.WATER, Aspect.SENSES }, new int[] { 5, 5, 1 });
@@ -114,8 +104,12 @@ public class ThaumcraftManager extends Integration {
 			addAspectsToItem(ModBlocks.red_mushroom_block, new Aspect[] { Aspect.PLANT, Aspect.DARKNESS, Aspect.FIRE }, new int[] { 2, 1, 1 });
 		}
 		if (GanysSurface.enableItemDisplay)
-			for (int i = 0; i < 16; i++)  
+			for (int i = 0; i < 16; i++)
 				addAspectsToItem(ModBlocks.itemDisplay, i, new Aspect[] { Aspect.CRYSTAL, Aspect.CLOTH }, new int[] { 4, 1 });
+
+		if (GanysSurface.enableWoodenTrapdoors)
+			for (Block trapdoor : ModBlocks.trapdoors)
+				addAspectsToItem(trapdoor, new Aspect[] { Aspect.TREE, Aspect.MOTION }, new int[] { 2, 1 });
 	}
 
 	@Override
@@ -135,12 +129,12 @@ public class ThaumcraftManager extends Integration {
 		addAspectsToItem(new ItemStack(block, 1, meta), aspects, amounts);
 	}
 
-	private void addAspectsToItem(Item id, Aspect[] aspects, int[] amounts) {
-		addAspectsToItem(new ItemStack(id), aspects, amounts);
+	private void addAspectsToItem(Item item, Aspect[] aspects, int[] amounts) {
+		addAspectsToItem(new ItemStack(item), aspects, amounts);
 	}
 
-	private void addAspectsToItem(Item id, int meta, Aspect[] aspects, int[] amounts) {
-		addAspectsToItem(new ItemStack(id, 1, meta), aspects, amounts);
+	private void addAspectsToItem(Item items, int meta, Aspect[] aspects, int[] amounts) {
+		addAspectsToItem(new ItemStack(items, 1, meta), aspects, amounts);
 	}
 
 	private void addAspectsToItem(ItemStack stack, Aspect[] aspects, int[] amounts) {

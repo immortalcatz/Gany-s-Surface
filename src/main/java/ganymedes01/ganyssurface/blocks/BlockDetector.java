@@ -1,6 +1,7 @@
 package ganymedes01.ganyssurface.blocks;
 
 import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.IConfigurable;
 import ganymedes01.ganyssurface.core.utils.InventoryUtils;
 import ganymedes01.ganyssurface.core.utils.Utils;
 import ganymedes01.ganyssurface.lib.GUIsID;
@@ -25,7 +26,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  *
  */
 
-public class BlockDetector extends BlockContainer {
+public class BlockDetector extends BlockContainer implements IConfigurable {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon blockOn, blockOff;
@@ -34,7 +35,7 @@ public class BlockDetector extends BlockContainer {
 		super(Material.cloth);
 		setHardness(0.2F);
 		setStepSound(soundTypeWood);
-		setBlockName(Utils.getUnlocalizedName(Strings.BLOCK_DETECTOR_NAME));
+		setBlockName(Utils.getUnlocalisedName(Strings.BLOCK_DETECTOR_NAME));
 		setCreativeTab(GanysSurface.enableDislocators ? GanysSurface.surfaceTab : null);
 	}
 
@@ -104,5 +105,10 @@ public class BlockDetector extends BlockContainer {
 				world.setBlockMetadataWithNotify(x, y, z, 15, 3);
 		} else if (metadata != 0)
 			world.setBlockMetadataWithNotify(x, y, z, 0, 3);
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return GanysSurface.enableDislocators;
 	}
 }

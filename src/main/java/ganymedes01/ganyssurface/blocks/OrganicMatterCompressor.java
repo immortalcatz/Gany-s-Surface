@@ -1,6 +1,7 @@
 package ganymedes01.ganyssurface.blocks;
 
 import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.IConfigurable;
 import ganymedes01.ganyssurface.core.utils.InventoryUtils;
 import ganymedes01.ganyssurface.core.utils.Utils;
 import ganymedes01.ganyssurface.lib.GUIsID;
@@ -21,14 +22,14 @@ import net.minecraft.world.World;
  *
  */
 
-public class OrganicMatterCompressor extends BlockContainer {
+public class OrganicMatterCompressor extends BlockContainer implements IConfigurable {
 
 	public OrganicMatterCompressor() {
 		super(Material.rock);
 		setHardness(3.5F);
 		setStepSound(soundTypeStone);
 		setCreativeTab(GanysSurface.enableOMC ? GanysSurface.surfaceTab : null);
-		setBlockName(Utils.getUnlocalizedName(Strings.ORGANIC_MATTER_COMPRESSOR_NAME));
+		setBlockName(Utils.getUnlocalisedName(Strings.ORGANIC_MATTER_COMPRESSOR_NAME));
 		setBlockTextureName(Utils.getBlockTexture(Strings.ORGANIC_MATTER_COMPRESSOR_NAME));
 	}
 
@@ -65,5 +66,10 @@ public class OrganicMatterCompressor extends BlockContainer {
 	@Override
 	public int getComparatorInputOverride(World world, int x, int y, int z, int side) {
 		return Container.calcRedstoneFromInventory(Utils.getTileEntity(world, x, y, z, TileEntityOrganicMatterCompressor.class));
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return GanysSurface.enableOMC;
 	}
 }

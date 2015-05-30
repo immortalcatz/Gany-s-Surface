@@ -1,6 +1,7 @@
 package ganymedes01.ganyssurface.blocks;
 
 import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.IConfigurable;
 import ganymedes01.ganyssurface.core.utils.Utils;
 import ganymedes01.ganyssurface.lib.Strings;
 
@@ -17,7 +18,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class FertilizedSoil extends Block {
+public class FertilizedSoil extends Block implements IConfigurable {
 
 	public FertilizedSoil() {
 		super(Material.ground);
@@ -27,7 +28,7 @@ public class FertilizedSoil extends Block {
 		setHarvestLevel("shovel", 0);
 		setStepSound(soundTypeGravel);
 		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.9375F, 1.0F);
-		setBlockName(Utils.getUnlocalizedName(Strings.FERTILIZED_SOIL_NAME));
+		setBlockName(Utils.getUnlocalisedName(Strings.FERTILIZED_SOIL_NAME));
 		setBlockTextureName(Utils.getBlockTexture(Strings.FERTILIZED_SOIL_NAME));
 		setCreativeTab(GanysSurface.enableFertilisedSoil ? GanysSurface.surfaceTab : null);
 	}
@@ -63,5 +64,10 @@ public class FertilizedSoil extends Block {
 	@Override
 	protected boolean canSilkHarvest() {
 		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return GanysSurface.enableFertilisedSoil;
 	}
 }

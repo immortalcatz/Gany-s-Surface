@@ -24,11 +24,11 @@ public class ForestryManager extends Integration {
 
 	@Override
 	public void init() {
-		//		FMLInterModComms.sendMessage(getModID(), "add-farmable-crop", "farmWheat@" + ModItems.camelliaSeeds.itemID + ".0." + ModBlocks.camelliaCrop.blockID + ".7");
+		// FMLInterModComms.sendMessage(getModID(), "add-farmable-crop", "farmWheat@" + ModItems.camelliaSeeds.itemID + ".0." + ModBlocks.camelliaCrop.blockID + ".7");
 		//
-		//		FMLInterModComms.sendMessage(getModID(), "add-backpack-items", "miner@" + ModItems.colouredRedstone.itemID + ":*;");
-		//		FMLInterModComms.sendMessage(getModID(), "add-backpack-items", "forester@" + ModItems.camelliaSeeds.itemID + ";" + ModItems.teaLeaves.itemID + ";");
-		//		FMLInterModComms.sendMessage(getModID(), "add-backpack-items", "hunter@" + ModItems.poop.itemID + ":*;" + ModItems.pocketCritter.itemID + ";");
+		// FMLInterModComms.sendMessage(getModID(), "add-backpack-items", "miner@" + ModItems.colouredRedstone.itemID + ":*;");
+		// FMLInterModComms.sendMessage(getModID(), "add-backpack-items", "forester@" + ModItems.camelliaSeeds.itemID + ";" + ModItems.teaLeaves.itemID + ";");
+		// FMLInterModComms.sendMessage(getModID(), "add-backpack-items", "hunter@" + ModItems.poop.itemID + ":*;" + ModItems.pocketCritter.itemID + ";");
 
 		if (GanysSurface.enablePoop) {
 			ItemStack fert = getItem("fertilizerCompound", 24);
@@ -39,7 +39,10 @@ public class ForestryManager extends Integration {
 
 	@Override
 	public void postInit() {
-		addSqueezerRecipe(new ItemStack(ModItems.camelliaSeeds), 20);
+		if (GanysSurface.enableTea)
+			addSqueezerRecipe(new ItemStack(ModItems.camelliaSeeds), 20);
+		if (GanysSurface.enableBeetroots)
+			addSqueezerRecipe(new ItemStack(ModItems.beetrootSeeds), 20);
 	}
 
 	@Override

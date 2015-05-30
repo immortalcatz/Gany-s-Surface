@@ -1,18 +1,18 @@
 package ganymedes01.ganyssurface.core.proxy;
 
-import ganymedes01.ganyssurface.ContainerEnchantment;
 import ganymedes01.ganyssurface.GanysSurface;
-import ganymedes01.ganyssurface.GuiEnchantment;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiAutoEncaser;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiBlockDetector;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiDualWorkTable;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiEncasingBench;
+import ganymedes01.ganyssurface.client.gui.inventory.GuiEnchantment;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiFarmManager;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiGearalyser;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiInkHarvester;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiOrganicMatterCompressor;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiPlanter;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiPortableDualWorkTable;
+import ganymedes01.ganyssurface.client.gui.inventory.GuiWoodSign;
 import ganymedes01.ganyssurface.client.gui.inventory.GuiWorkTable;
 import ganymedes01.ganyssurface.configuration.ConfigurationHandler;
 import ganymedes01.ganyssurface.core.handlers.EntityEvents;
@@ -28,6 +28,7 @@ import ganymedes01.ganyssurface.inventory.ContainerAutoEncaser;
 import ganymedes01.ganyssurface.inventory.ContainerBlockDetector;
 import ganymedes01.ganyssurface.inventory.ContainerDualWorkTable;
 import ganymedes01.ganyssurface.inventory.ContainerEncasingBench;
+import ganymedes01.ganyssurface.inventory.ContainerEnchantment;
 import ganymedes01.ganyssurface.inventory.ContainerFarmManager;
 import ganymedes01.ganyssurface.inventory.ContainerGearalyser;
 import ganymedes01.ganyssurface.inventory.ContainerInkHarvester;
@@ -39,6 +40,7 @@ import ganymedes01.ganyssurface.lib.GUIsID;
 import ganymedes01.ganyssurface.lib.ModIDs;
 import ganymedes01.ganyssurface.lib.Strings;
 import ganymedes01.ganyssurface.tileentities.TileEntityAutoEncaser;
+import ganymedes01.ganyssurface.tileentities.TileEntityBanner;
 import ganymedes01.ganyssurface.tileentities.TileEntityBlockDetector;
 import ganymedes01.ganyssurface.tileentities.TileEntityChestPropellant;
 import ganymedes01.ganyssurface.tileentities.TileEntityCubicSensoringDislocator;
@@ -52,6 +54,7 @@ import ganymedes01.ganyssurface.tileentities.TileEntityPlanter;
 import ganymedes01.ganyssurface.tileentities.TileEntityRainDetector;
 import ganymedes01.ganyssurface.tileentities.TileEntitySensoringDislocator;
 import ganymedes01.ganyssurface.tileentities.TileEntityWoodChest;
+import ganymedes01.ganyssurface.tileentities.TileEntityWoodSign;
 import ganymedes01.ganyssurface.tileentities.TileEntityWorkTable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -85,21 +88,23 @@ public class CommonProxy implements IGuiHandler {
 	}
 
 	public void registerTileEntities() {
-		GameRegistry.registerTileEntity(TileEntityRainDetector.class, Utils.getUnlocalizedName(Strings.RAIN_DETECTOR_NAME));
-		GameRegistry.registerTileEntity(TileEntityBlockDetector.class, Utils.getUnlocalizedName(Strings.BLOCK_DETECTOR_NAME));
-		GameRegistry.registerTileEntity(TileEntityDislocator.class, Utils.getUnlocalizedName(Strings.DISLOCATOR_NAME));
-		GameRegistry.registerTileEntity(TileEntitySensoringDislocator.class, Utils.getUnlocalizedName(Strings.SENSORING_DISLOCATOR_NAME));
-		GameRegistry.registerTileEntity(TileEntityCubicSensoringDislocator.class, Utils.getUnlocalizedName(Strings.CUBIC_SENSORING_DISLOCATOR_NAME));
-		GameRegistry.registerTileEntity(TileEntityWorkTable.class, Utils.getUnlocalizedName(Strings.WORK_TABLE_NAME));
-		GameRegistry.registerTileEntity(TileEntityOrganicMatterCompressor.class, Utils.getUnlocalizedName(Strings.ORGANIC_MATTER_COMPRESSOR_NAME));
-		GameRegistry.registerTileEntity(TileEntityItemDisplay.class, Utils.getUnlocalizedName(Strings.ITEM_DISPLAY_NAME));
-		GameRegistry.registerTileEntity(TileEntityChestPropellant.class, Utils.getUnlocalizedName(Strings.CHEST_PROPELLANT_NAME));
-		GameRegistry.registerTileEntity(TileEntityPlanter.class, Utils.getUnlocalizedName(Strings.PLANTER_NAME));
-		GameRegistry.registerTileEntity(TileEntityInkHarvester.class, Utils.getUnlocalizedName(Strings.INK_HARVESTER_NAME));
-		GameRegistry.registerTileEntity(TileEntityDualWorkTable.class, Utils.getUnlocalizedName(Strings.DUAL_WORK_TABLE_NAME));
-		GameRegistry.registerTileEntity(TileEntityFarmManager.class, Utils.getUnlocalizedName(Strings.FARM_MANAGER_NAME));
-		GameRegistry.registerTileEntity(TileEntityAutoEncaser.class, Utils.getUnlocalizedName(Strings.AUTO_ENCASER_NAME));
-		GameRegistry.registerTileEntity(TileEntityWoodChest.class, Utils.getUnlocalizedName("wood_chest"));
+		GameRegistry.registerTileEntity(TileEntityRainDetector.class, Utils.getUnlocalisedName(Strings.RAIN_DETECTOR_NAME));
+		GameRegistry.registerTileEntity(TileEntityBlockDetector.class, Utils.getUnlocalisedName(Strings.BLOCK_DETECTOR_NAME));
+		GameRegistry.registerTileEntity(TileEntityDislocator.class, Utils.getUnlocalisedName(Strings.DISLOCATOR_NAME));
+		GameRegistry.registerTileEntity(TileEntitySensoringDislocator.class, Utils.getUnlocalisedName(Strings.SENSORING_DISLOCATOR_NAME));
+		GameRegistry.registerTileEntity(TileEntityCubicSensoringDislocator.class, Utils.getUnlocalisedName(Strings.CUBIC_SENSORING_DISLOCATOR_NAME));
+		GameRegistry.registerTileEntity(TileEntityWorkTable.class, Utils.getUnlocalisedName(Strings.WORK_TABLE_NAME));
+		GameRegistry.registerTileEntity(TileEntityOrganicMatterCompressor.class, Utils.getUnlocalisedName(Strings.ORGANIC_MATTER_COMPRESSOR_NAME));
+		GameRegistry.registerTileEntity(TileEntityItemDisplay.class, Utils.getUnlocalisedName(Strings.ITEM_DISPLAY_NAME));
+		GameRegistry.registerTileEntity(TileEntityChestPropellant.class, Utils.getUnlocalisedName(Strings.CHEST_PROPELLANT_NAME));
+		GameRegistry.registerTileEntity(TileEntityPlanter.class, Utils.getUnlocalisedName(Strings.PLANTER_NAME));
+		GameRegistry.registerTileEntity(TileEntityInkHarvester.class, Utils.getUnlocalisedName(Strings.INK_HARVESTER_NAME));
+		GameRegistry.registerTileEntity(TileEntityDualWorkTable.class, Utils.getUnlocalisedName(Strings.DUAL_WORK_TABLE_NAME));
+		GameRegistry.registerTileEntity(TileEntityFarmManager.class, Utils.getUnlocalisedName(Strings.FARM_MANAGER_NAME));
+		GameRegistry.registerTileEntity(TileEntityAutoEncaser.class, Utils.getUnlocalisedName(Strings.AUTO_ENCASER_NAME));
+		GameRegistry.registerTileEntity(TileEntityWoodChest.class, Utils.getUnlocalisedName("wood_chest"));
+		GameRegistry.registerTileEntity(TileEntityWoodSign.class, Utils.getUnlocalisedName("wood_sign"));
+		GameRegistry.registerTileEntity(TileEntityBanner.class, Utils.getUnlocalisedName("banner"));
 	}
 
 	public void registerEntities() {
@@ -139,6 +144,8 @@ public class CommonProxy implements IGuiHandler {
 				return new ContainerGearalyser(player.inventory);
 			case GUIsID.ENCHANTING_TABLE:
 				return new ContainerEnchantment(player.inventory, world, x, y, z);
+			case GUIsID.WOOD_SIGN:
+				return null;
 			default:
 				return null;
 		}
@@ -172,6 +179,8 @@ public class CommonProxy implements IGuiHandler {
 				return new GuiGearalyser(player.inventory);
 			case GUIsID.ENCHANTING_TABLE:
 				return new GuiEnchantment(player.inventory, world, null);
+			case GUIsID.WOOD_SIGN:
+				return new GuiWoodSign((TileEntityWoodSign) tile);
 			default:
 				return null;
 		}

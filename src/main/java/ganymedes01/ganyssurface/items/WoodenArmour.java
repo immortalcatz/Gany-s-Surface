@@ -1,6 +1,7 @@
 package ganymedes01.ganyssurface.items;
 
 import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.IConfigurable;
 import ganymedes01.ganyssurface.core.utils.Utils;
 import ganymedes01.ganyssurface.lib.ModMaterials;
 import ganymedes01.ganyssurface.lib.Strings;
@@ -24,7 +25,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  *
  */
 
-public class WoodenArmour extends ItemArmor {
+public class WoodenArmour extends ItemArmor implements IConfigurable {
 
 	private String texturePath, iconPath;
 
@@ -32,8 +33,7 @@ public class WoodenArmour extends ItemArmor {
 		super(ModMaterials.WOOD, 0, type);
 		setMaxStackSize(1);
 		setArmourType(type);
-		if (GanysSurface.enableWoodenArmour)
-			setCreativeTab(GanysSurface.surfaceTab);
+		setCreativeTab(GanysSurface.enableWoodenArmour ? GanysSurface.surfaceTab : null);
 	}
 
 	@Override
@@ -74,25 +74,30 @@ public class WoodenArmour extends ItemArmor {
 	private void setArmourType(int piece) {
 		switch (piece) {
 			case 0:
-				setUnlocalizedName(Utils.getUnlocalizedName(Strings.WOODEN_HELMET_NAME));
+				setUnlocalizedName(Utils.getUnlocalisedName(Strings.WOODEN_HELMET_NAME));
 				texturePath = Utils.getArmourTexture(ModMaterials.WOOD.name(), 1);
 				iconPath = Utils.getItemTexture(Strings.WOODEN_HELMET_NAME);
 				break;
 			case 1:
-				setUnlocalizedName(Utils.getUnlocalizedName(Strings.WOODEN_CHESTPLATE_NAME));
+				setUnlocalizedName(Utils.getUnlocalisedName(Strings.WOODEN_CHESTPLATE_NAME));
 				texturePath = Utils.getArmourTexture(ModMaterials.WOOD.name(), 1);
 				iconPath = Utils.getItemTexture(Strings.WOODEN_CHESTPLATE_NAME);
 				break;
 			case 2:
-				setUnlocalizedName(Utils.getUnlocalizedName(Strings.WOODEN_LEGGINGS_NAME));
+				setUnlocalizedName(Utils.getUnlocalisedName(Strings.WOODEN_LEGGINGS_NAME));
 				texturePath = Utils.getArmourTexture(ModMaterials.WOOD.name(), 2);
 				iconPath = Utils.getItemTexture(Strings.WOODEN_LEGGINGS_NAME);
 				break;
 			case 3:
-				setUnlocalizedName(Utils.getUnlocalizedName(Strings.WOODEN_BOOTS_NAME));
+				setUnlocalizedName(Utils.getUnlocalisedName(Strings.WOODEN_BOOTS_NAME));
 				texturePath = Utils.getArmourTexture(ModMaterials.WOOD.name(), 1);
 				iconPath = Utils.getItemTexture(Strings.WOODEN_BOOTS_NAME);
 				break;
 		}
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return GanysSurface.enableWoodenArmour;
 	}
 }

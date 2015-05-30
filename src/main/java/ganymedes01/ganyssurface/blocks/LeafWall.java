@@ -1,9 +1,10 @@
 package ganymedes01.ganyssurface.blocks;
 
 import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.IConfigurable;
 import ganymedes01.ganyssurface.ModBlocks.ISubBlocksBlock;
 import ganymedes01.ganyssurface.core.utils.Utils;
-import ganymedes01.ganyssurface.items.block.ItemLeafWall;
+import ganymedes01.ganyssurface.items.block.ItemBlockGeneric;
 import ganymedes01.ganyssurface.lib.Strings;
 
 import java.util.List;
@@ -30,14 +31,14 @@ import cpw.mods.fml.relauncher.SideOnly;
  *
  */
 
-public class LeafWall extends Block implements ISubBlocksBlock {
+public class LeafWall extends Block implements ISubBlocksBlock, IConfigurable {
 
 	public LeafWall() {
 		super(Material.leaves);
-		setHardness(2.0F);
+		setHardness(1.0F);
 		setHarvestLevel("axe", 0);
 		setStepSound(soundTypeGrass);
-		setBlockName(Utils.getUnlocalizedName(Strings.LEAF_WALL));
+		setBlockName(Utils.getUnlocalisedName(Strings.LEAF_WALL));
 		setCreativeTab(GanysSurface.enableLeafWalls ? GanysSurface.surfaceTab : null);
 	}
 
@@ -155,6 +156,11 @@ public class LeafWall extends Block implements ISubBlocksBlock {
 
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemLeafWall.class;
+		return ItemBlockGeneric.class;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return GanysSurface.enableLeafWalls;
 	}
 }

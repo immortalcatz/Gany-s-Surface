@@ -1,6 +1,7 @@
 package ganymedes01.ganyssurface.items;
 
 import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.IConfigurable;
 import ganymedes01.ganyssurface.ModItems;
 import ganymedes01.ganyssurface.core.utils.InventoryUtils;
 import ganymedes01.ganyssurface.core.utils.Utils;
@@ -24,14 +25,14 @@ import net.minecraft.util.StatCollector;
  *
  */
 
-public class BatNet extends Item {
+public class BatNet extends Item implements IConfigurable {
 
 	public BatNet() {
 		setFull3D();
 		setMaxDamage(32);
 		setMaxStackSize(1);
 		setTextureName(Utils.getItemTexture(Strings.BAT_NET_NAME));
-		setUnlocalizedName(Utils.getUnlocalizedName(Strings.BAT_NET_NAME));
+		setUnlocalizedName(Utils.getUnlocalisedName(Strings.BAT_NET_NAME));
 		setCreativeTab(GanysSurface.enablePocketCritters ? GanysSurface.surfaceTab : null);
 	}
 
@@ -65,5 +66,10 @@ public class BatNet extends Item {
 			return 1;
 		else
 			return -1;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return GanysSurface.enablePocketCritters;
 	}
 }

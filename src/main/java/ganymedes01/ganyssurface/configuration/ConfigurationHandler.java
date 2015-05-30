@@ -1,6 +1,7 @@
 package ganymedes01.ganyssurface.configuration;
 
 import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.blocks.BlockStorage;
 import ganymedes01.ganyssurface.integration.Integration;
 import ganymedes01.ganyssurface.integration.ModIntegrator;
 import ganymedes01.ganyssurface.lib.EnumColour;
@@ -100,16 +101,25 @@ public class ConfigurationHandler {
 		GanysSurface.enableExtraVanillaRecipes = configBoolean("Enable extra vanilla recipes (for name tags, cobwebs and etc)", true, true);
 		GanysSurface.enableEndermanDropsBlocks = configBoolean("Enable enderman to drop the blocks they are carrying", true, true);
 		GanysSurface.enableChests = configBoolean("Enable wood specific chests", true, true);
-		GanysSurface.enableDynamicTextureChests = configBoolean("Enable dynamic texture for wood chests", false, false);
-		GanysSurface.enableSlowRail = configBoolean("Enable Slow Rail", false, true);
-		GanysSurface.enableBasalt = configBoolean("Enable Basalt", false, true);
+		GanysSurface.enableDynamicTextureChests = configBoolean("Enable dynamic texture for wood chests", true, false);
+		GanysSurface.enableSlowRail = configBoolean("Enable Slow Rail", true, true);
+		GanysSurface.enableBasalt = configBoolean("Enable Basalt", true, true);
 		GanysSurface.enableFlingablePoop = configBoolean("Enable Poop Throwing", false, true);
+		GanysSurface.enableBurnableBlocks = configBoolean("Make fences, gates and deadbushes burnable", "They aren't burnable in 1.7.10 but are in 1.8, set this to true to mimic the 1.8 behaviour", false, true);
+		GanysSurface.enableWoodenButtons = configBoolean("Enable wooden buttons", true, true);
+		GanysSurface.enableWoodenPressurePlates = configBoolean("Enable wooden pressure plates", true, true);
+		GanysSurface.enableWoodenTrapdoors = configBoolean("Enable wooden trapdoors", true, true);
+		GanysSurface.enableWoodenLadders = configBoolean("Enable wooden ladders", true, true);
+		GanysSurface.enableBeetroots = configBoolean("Enable MC:PE beetroots", true, true);
+		GanysSurface.enableWoodenSigns = configBoolean("Enable wooden signs", true, true);
+		GanysSurface.enableWoodenBookshelves = configBoolean("Enable wooden bookshelves", true, true);
+		GanysSurface.enableStorageBlocks = configBoolean("Enable storage blocks", "More specifically: " + BlockStorage.getTypesString(), true, true);
+		GanysSurface.enableDyeBlocks = configBoolean("Enable dye blocks", true, true);
 
 		// 1.8 Stuff
 		GanysSurface.enable18Stones = configBoolean("Enable 1.8 Stones", true, true);
 		GanysSurface.enableIronTrapdoor = configBoolean("Enable Iron Trapdoor", true, true);
 		GanysSurface.enableMutton = configBoolean("Enable Mutton", true, true);
-		GanysSurface.enableSpongeTexture = configBoolean("Enable new sponge texture", true, true);
 		GanysSurface.enablePrismarineStuff = configBoolean("Enable Prismarine stuff", true, true);
 		GanysSurface.enableDoors = configBoolean("Enable 1.8 style doors", true, true);
 		GanysSurface.enableInvertedDaylightSensor = configBoolean("Enable inverted daylight sensor", true, true);
@@ -118,17 +128,17 @@ public class ConfigurationHandler {
 		GanysSurface.enableFences = configBoolean("Enable 1.8 wood fences", true, true);
 		GanysSurface.enableSilkTouchingMushrooms = configBoolean("Enable Silk Touching of mushroom blocks", true, true);
 		GanysSurface.max18StonesPerCluster = configInteger("Max number of 1.8 stones in a cluster", true, GanysSurface.max18StonesPerCluster);
+		GanysSurface.enableBanners = configBoolean("Enable 1.8 banners", true, true);
+		GanysSurface.enableRedSandstone = configBoolean("Enable 1.8 red sandstone", true, true);
 
 		// Others
 		GanysSurface.shouldDoVersionCheck = configBoolean("shouldDoVersionCheck", true, true);
 		GanysSurface.poopRandomBonemeals = configBoolean("poopRandomBonemeals", false, true);
 		GanysSurface.enableDynamicSnow = configBoolean("enableDynamicSnow", "Snow layers will get taller when it snows and shorter when it stops snowing", false, true);
-		GanysSurface.noDespawnRadius = configInteger("noDespawnRadius", "If there are any players within this radius of an item thrown on the ground that item will not despawn.\n-Set it to 0 to disable this feature.\n-Set it to LESS THAN 0 and items will never despawn regardless of players being nearby.", false, GanysSurface.noDespawnRadius);
 
 		GanysSurface.maxLevelOMCWorks = configInteger("maxLevelOMCWorks", false, 15);
 		GanysSurface.inkHarvesterMaxStrike = configInteger("inkHarvesterMaxStrike", false, 5);
 		GanysSurface.poopingChance = configInteger("poopingChance", "Larger number means poop is LESS likely to happen", false, 15000);
-		GanysSurface.prismarineTempleChance = configInteger("prismarineTempleChance", "Larger number means temples are LESS likely to happen", false, GanysSurface.prismarineTempleChance);
 
 		// Sheep wool colours
 		for (int i = 0; i < 16; i++) {

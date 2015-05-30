@@ -1,6 +1,7 @@
 package ganymedes01.ganyssurface.items;
 
 import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.IConfigurable;
 import ganymedes01.ganyssurface.api.IQuiver;
 import ganymedes01.ganyssurface.core.utils.InventoryUtils;
 import ganymedes01.ganyssurface.core.utils.Utils;
@@ -26,7 +27,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  *
  */
 
-public class Quiver extends Item implements IQuiver {
+public class Quiver extends Item implements IQuiver, IConfigurable {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon empty;
@@ -37,7 +38,7 @@ public class Quiver extends Item implements IQuiver {
 		setFull3D();
 		setMaxStackSize(1);
 		setTextureName("quiver");
-		setUnlocalizedName(Utils.getUnlocalizedName(Strings.QUIVER_NAME));
+		setUnlocalizedName(Utils.getUnlocalisedName(Strings.QUIVER_NAME));
 		setCreativeTab(GanysSurface.enableQuiver ? GanysSurface.surfaceTab : null);
 	}
 
@@ -118,5 +119,10 @@ public class Quiver extends Item implements IQuiver {
 		if (stack != null && stack.getItem() instanceof IQuiver)
 			((IQuiver) stack.getItem()).setArrowAmount(stack, count);
 		stack.setItemDamage(count);
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return GanysSurface.enableQuiver;
 	}
 }

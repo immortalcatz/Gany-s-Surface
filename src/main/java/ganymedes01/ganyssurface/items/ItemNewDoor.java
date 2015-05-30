@@ -1,6 +1,9 @@
 package ganymedes01.ganyssurface.items;
 
 import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.IConfigurable;
+import ganymedes01.ganyssurface.ModBlocks;
+import ganymedes01.ganyssurface.blocks.BlockWoodDoor;
 import ganymedes01.ganyssurface.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,15 +13,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class ItemNewDoor extends Item {
+public class ItemNewDoor extends Item implements IConfigurable {
 
 	private final Block door;
 
-	public ItemNewDoor(String name, Block door) {
-		this.door = door;
+	public ItemNewDoor(int meta) {
+		door = ModBlocks.doors[meta - 1];
+		String name = BlockWoodDoor.names[meta];
+
 		setMaxStackSize(64);
 		setTextureName("door_" + name);
-		setUnlocalizedName(Utils.getUnlocalizedName("door_" + name));
+		setUnlocalizedName(Utils.getUnlocalisedName("door_" + name));
 		setCreativeTab(GanysSurface.enableDoors ? GanysSurface.surfaceTab : null);
 	}
 
@@ -39,5 +44,10 @@ public class ItemNewDoor extends Item {
 			} else
 				return false;
 		}
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return GanysSurface.enableDoors;
 	}
 }

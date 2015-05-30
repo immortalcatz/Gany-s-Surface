@@ -1,6 +1,7 @@
 package ganymedes01.ganyssurface.blocks;
 
 import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.IConfigurable;
 import ganymedes01.ganyssurface.ModItems;
 import ganymedes01.ganyssurface.core.utils.Utils;
 import ganymedes01.ganyssurface.lib.ModSounds;
@@ -32,7 +33,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  *
  */
 
-public class PoopBlock extends Block implements IGrowable {
+public class PoopBlock extends Block implements IGrowable, IConfigurable {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
@@ -43,7 +44,7 @@ public class PoopBlock extends Block implements IGrowable {
 		disableStats();
 		setTickRandomly(true);
 		setStepSound(ModSounds.soundSlime);
-		setBlockName(Utils.getUnlocalizedName(Strings.POOP_BLOCK_NAME));
+		setBlockName(Utils.getUnlocalisedName(Strings.POOP_BLOCK_NAME));
 		setBlockBounds(5 * pixel, 0.0F, 5 * pixel, 1.0F - 5 * pixel, 6 * pixel, 1.0F - 5 * pixel);
 	}
 
@@ -123,6 +124,7 @@ public class PoopBlock extends Block implements IGrowable {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
 		world.spawnParticle("mobSpell", x + 0.5D, y + 0.3D, z + 0.5D, 45.0D / 255.0D, 104.0D / 255.0D, 20.0D / 255.0D);
 	}
@@ -162,5 +164,10 @@ public class PoopBlock extends Block implements IGrowable {
 
 	@Override
 	public void func_149853_b(World world, Random rand, int x, int y, int z) {
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return GanysSurface.enablePoop;
 	}
 }

@@ -1,6 +1,7 @@
 package ganymedes01.ganyssurface.blocks;
 
 import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.IConfigurable;
 import ganymedes01.ganyssurface.core.utils.InventoryUtils;
 import ganymedes01.ganyssurface.core.utils.Utils;
 import ganymedes01.ganyssurface.lib.GUIsID;
@@ -28,7 +29,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  *
  */
 
-public class WorkTable extends BlockContainer {
+public class WorkTable extends BlockContainer implements IConfigurable {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon blockTop, blockSide, blockFront;
@@ -37,7 +38,7 @@ public class WorkTable extends BlockContainer {
 		super(Material.wood);
 		setHardness(2.5F);
 		setStepSound(soundTypeWood);
-		setBlockName(Utils.getUnlocalizedName(Strings.WORK_TABLE_NAME));
+		setBlockName(Utils.getUnlocalisedName(Strings.WORK_TABLE_NAME));
 		setCreativeTab(GanysSurface.enableWorkTables ? GanysSurface.surfaceTab : null);
 	}
 
@@ -97,5 +98,10 @@ public class WorkTable extends BlockContainer {
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return new TileEntityWorkTable();
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return GanysSurface.enableWorkTables;
 	}
 }

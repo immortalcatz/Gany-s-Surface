@@ -1,6 +1,7 @@
 package ganymedes01.ganyssurface.blocks;
 
 import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.IConfigurable;
 import ganymedes01.ganyssurface.core.utils.InventoryUtils;
 import ganymedes01.ganyssurface.core.utils.Utils;
 import ganymedes01.ganyssurface.lib.GUIsID;
@@ -26,7 +27,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  *
  */
 
-public class Planter extends BlockContainer {
+public class Planter extends BlockContainer implements IConfigurable {
 
 	@SideOnly(Side.CLIENT)
 	private IIcon side;
@@ -35,7 +36,7 @@ public class Planter extends BlockContainer {
 		super(Material.cloth);
 		setHardness(1.0F);
 		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
-		setBlockName(Utils.getUnlocalizedName(Strings.PLANTER_NAME));
+		setBlockName(Utils.getUnlocalisedName(Strings.PLANTER_NAME));
 		setCreativeTab(GanysSurface.enablePlanter ? GanysSurface.surfaceTab : null);
 	}
 
@@ -100,5 +101,10 @@ public class Planter extends BlockContainer {
 	@Override
 	public int getRenderType() {
 		return RenderIDs.PLANTER;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return GanysSurface.enablePlanter;
 	}
 }

@@ -1,10 +1,11 @@
 package ganymedes01.ganyssurface.blocks;
 
 import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.IConfigurable;
 import ganymedes01.ganyssurface.ModBlocks.ISubBlocksBlock;
 import ganymedes01.ganyssurface.core.utils.InventoryUtils;
 import ganymedes01.ganyssurface.core.utils.Utils;
-import ganymedes01.ganyssurface.items.block.ItemItemDisplay;
+import ganymedes01.ganyssurface.items.block.ItemBlockGeneric;
 import ganymedes01.ganyssurface.lib.RenderIDs;
 import ganymedes01.ganyssurface.lib.Strings;
 import ganymedes01.ganyssurface.tileentities.TileEntityItemDisplay;
@@ -31,13 +32,13 @@ import cpw.mods.fml.relauncher.SideOnly;
  *
  */
 
-public class ItemDisplay extends BlockContainer implements ISubBlocksBlock {
+public class ItemDisplay extends BlockContainer implements ISubBlocksBlock, IConfigurable {
 
 	public ItemDisplay() {
 		super(Material.glass);
 		setHardness(1.0F);
 		setStepSound(soundTypeGlass);
-		setBlockName(Utils.getUnlocalizedName(Strings.ITEM_DISPLAY_NAME));
+		setBlockName(Utils.getUnlocalisedName(Strings.ITEM_DISPLAY_NAME));
 		setBlockTextureName(Utils.getBlockTexture(Strings.ITEM_DISPLAY_NAME));
 		setCreativeTab(GanysSurface.enableItemDisplay ? GanysSurface.surfaceTab : null);
 	}
@@ -105,6 +106,11 @@ public class ItemDisplay extends BlockContainer implements ISubBlocksBlock {
 
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemItemDisplay.class;
+		return ItemBlockGeneric.class;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return GanysSurface.enableItemDisplay;
 	}
 }

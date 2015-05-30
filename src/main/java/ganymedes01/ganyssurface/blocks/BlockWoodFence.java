@@ -1,6 +1,8 @@
 package ganymedes01.ganyssurface.blocks;
 
 import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.IConfigurable;
+import ganymedes01.ganyssurface.ModBlocks.IBurnableBlock;
 import ganymedes01.ganyssurface.core.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
@@ -20,7 +22,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  *
  */
 
-public class BlockWoodFence extends BlockFence {
+public class BlockWoodFence extends BlockFence implements IBurnableBlock, IConfigurable {
 
 	private final int meta;
 
@@ -30,7 +32,7 @@ public class BlockWoodFence extends BlockFence {
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setStepSound(soundTypeWood);
-		setBlockName(Utils.getUnlocalizedName("fence_" + meta));
+		setBlockName(Utils.getUnlocalisedName("fence_" + meta));
 		setCreativeTab(GanysSurface.enableFences ? GanysSurface.surfaceTab : null);
 	}
 
@@ -54,5 +56,10 @@ public class BlockWoodFence extends BlockFence {
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
 		return Blocks.planks.getIcon(side, this.meta);
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return GanysSurface.enableFences;
 	}
 }

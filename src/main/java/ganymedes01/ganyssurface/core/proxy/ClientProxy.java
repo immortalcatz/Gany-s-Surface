@@ -11,6 +11,8 @@ import ganymedes01.ganyssurface.client.renderer.block.BlockItemDisplayRender;
 import ganymedes01.ganyssurface.client.renderer.block.BlockLanternRender;
 import ganymedes01.ganyssurface.client.renderer.block.BlockPlanterRender;
 import ganymedes01.ganyssurface.client.renderer.block.BlockSlimeBlockRender;
+import ganymedes01.ganyssurface.client.renderer.block.BlockTrapdoorRenderer;
+import ganymedes01.ganyssurface.client.renderer.item.ItemBannerRenderer;
 import ganymedes01.ganyssurface.client.renderer.item.ItemIcyPickaxeRenderer;
 import ganymedes01.ganyssurface.client.renderer.item.ItemPaintingRenderer;
 import ganymedes01.ganyssurface.client.renderer.item.ItemPocketCritterRenderer;
@@ -32,26 +34,30 @@ import ganymedes01.ganyssurface.client.renderer.item.vanilla.ItemMinecartHopperR
 import ganymedes01.ganyssurface.client.renderer.item.vanilla.ItemMinecartRenderer;
 import ganymedes01.ganyssurface.client.renderer.item.vanilla.ItemMinecartTNTRenderer;
 import ganymedes01.ganyssurface.client.renderer.item.vanilla.ItemRepeaterRenderer;
+import ganymedes01.ganyssurface.client.renderer.item.vanilla.ItemSignRenderer;
 import ganymedes01.ganyssurface.client.renderer.item.vanilla.ItemTorchRenderer;
+import ganymedes01.ganyssurface.client.renderer.tileentity.TileEntityBannerRenderer;
 import ganymedes01.ganyssurface.client.renderer.tileentity.TileEntityChestPropellantRender;
 import ganymedes01.ganyssurface.client.renderer.tileentity.TileEntityItemDisplayRender;
 import ganymedes01.ganyssurface.client.renderer.tileentity.TileEntityPlanterRender;
 import ganymedes01.ganyssurface.client.renderer.tileentity.TileEntityWoodChestRenderer;
+import ganymedes01.ganyssurface.client.renderer.tileentity.TileEntityWoodSignRenderer;
 import ganymedes01.ganyssurface.client.renderer.tileentity.TileEntityWorkTableRender;
-import ganymedes01.ganyssurface.core.handlers.ClientEventHandler;
 import ganymedes01.ganyssurface.core.handlers.KeyBindingHandler;
 import ganymedes01.ganyssurface.core.handlers.RenderCapeHandler;
 import ganymedes01.ganyssurface.core.handlers.VersionCheckTickHandler;
-import ganymedes01.ganyssurface.core.utils.Utils;
 import ganymedes01.ganyssurface.core.utils.VersionHelper;
 import ganymedes01.ganyssurface.entities.EntityBatPoop;
 import ganymedes01.ganyssurface.entities.EntityPoop;
 import ganymedes01.ganyssurface.entities.EntityVillageFinder;
+import ganymedes01.ganyssurface.tileentities.TileEntityBanner;
 import ganymedes01.ganyssurface.tileentities.TileEntityChestPropellant;
 import ganymedes01.ganyssurface.tileentities.TileEntityItemDisplay;
 import ganymedes01.ganyssurface.tileentities.TileEntityPlanter;
 import ganymedes01.ganyssurface.tileentities.TileEntityWoodChest;
+import ganymedes01.ganyssurface.tileentities.TileEntityWoodSign;
 import ganymedes01.ganyssurface.tileentities.TileEntityWorkTable;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -82,13 +88,9 @@ public class ClientProxy extends CommonProxy {
 		}
 
 		FMLCommonHandler.instance().bus().register(new KeyBindingHandler());
-		MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
 
 		if (!Loader.isModLoaded("ganysend") && !Loader.isModLoaded("ganysnether"))
 			MinecraftForge.EVENT_BUS.register(new RenderCapeHandler());
-
-		if (GanysSurface.enableSpongeTexture)
-			Blocks.sponge.setBlockTextureName(Utils.getBlockTexture("sponge"));
 	}
 
 	@Override
@@ -99,6 +101,8 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityChestPropellant.class, new TileEntityChestPropellantRender());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPlanter.class, new TileEntityPlanterRender());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWoodChest.class, new TileEntityWoodChestRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWoodSign.class, new TileEntityWoodSignRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBanner.class, new TileEntityBannerRenderer());
 	}
 
 	@Override
@@ -123,14 +127,9 @@ public class ClientProxy extends CommonProxy {
 		if (GanysSurface.enablePaintings)
 			MinecraftForgeClient.registerItemRenderer(ModItems.painting, new ItemPaintingRenderer());
 
-		if (GanysSurface.enableChests) {
-			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.chestOak), ItemWoodChestRenderer.INSTANCE);
-			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.chestSpruce), ItemWoodChestRenderer.INSTANCE);
-			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.chestBirch), ItemWoodChestRenderer.INSTANCE);
-			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.chestJungle), ItemWoodChestRenderer.INSTANCE);
-			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.chestAcacia), ItemWoodChestRenderer.INSTANCE);
-			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.chestDarkOak), ItemWoodChestRenderer.INSTANCE);
-		}
+		if (GanysSurface.enableChests)
+			for (Block chest : ModBlocks.chests)
+				MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(chest), ItemWoodChestRenderer.INSTANCE);
 
 		if (GanysSurface.enable3DRendering) {
 			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.hopper), new ItemHopperRenderer());
@@ -151,7 +150,13 @@ public class ClientProxy extends CommonProxy {
 			MinecraftForgeClient.registerItemRenderer(Items.cake, new ItemCakeRenderer());
 			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.torch), new ItemTorchRenderer());
 			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Blocks.redstone_torch), new ItemTorchRenderer());
+			MinecraftForgeClient.registerItemRenderer(Items.sign, ItemSignRenderer.INSTANCE);
+			if (GanysSurface.enableWoodenSigns)
+				for (Block sign : ModBlocks.signs)
+					MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(sign), ItemSignRenderer.INSTANCE);
 		}
+
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.banner), new ItemBannerRenderer());
 	}
 
 	private void registerEntityRenderers() {
@@ -185,6 +190,9 @@ public class ClientProxy extends CommonProxy {
 
 		if (GanysSurface.enableDoors)
 			RenderingRegistry.registerBlockHandler(new BlockDoorRenderer());
+
+		if (GanysSurface.enableWoodenTrapdoors)
+			RenderingRegistry.registerBlockHandler(new BlockTrapdoorRenderer());
 
 		RenderingRegistry.registerBlockHandler(new BlockChestRenderer());
 	}

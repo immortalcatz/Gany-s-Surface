@@ -1,6 +1,7 @@
 package ganymedes01.ganyssurface.items;
 
 import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.IConfigurable;
 import ganymedes01.ganyssurface.ModItems;
 import ganymedes01.ganyssurface.core.utils.InventoryUtils;
 import ganymedes01.ganyssurface.core.utils.Utils;
@@ -20,12 +21,12 @@ import net.minecraft.world.World;
  *
  */
 
-public class CupOfTea extends Item {
+public class CupOfTea extends Item implements IConfigurable {
 
 	public CupOfTea() {
 		setMaxStackSize(1);
 		setTextureName(Utils.getItemTexture(Strings.CUP_OF_TEA_NAME));
-		setUnlocalizedName(Utils.getUnlocalizedName(Strings.CUP_OF_TEA_NAME));
+		setUnlocalizedName(Utils.getUnlocalisedName(Strings.CUP_OF_TEA_NAME));
 		setCreativeTab(GanysSurface.enableTea ? GanysSurface.surfaceTab : null);
 	}
 
@@ -68,5 +69,10 @@ public class CupOfTea extends Item {
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		player.setItemInUse(stack, getMaxItemUseDuration(stack));
 		return stack;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return GanysSurface.enableTea;
 	}
 }

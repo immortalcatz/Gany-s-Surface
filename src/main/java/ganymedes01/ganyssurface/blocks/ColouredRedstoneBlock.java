@@ -1,10 +1,11 @@
 package ganymedes01.ganyssurface.blocks;
 
 import ganymedes01.ganyssurface.GanysSurface;
+import ganymedes01.ganyssurface.IConfigurable;
 import ganymedes01.ganyssurface.ModBlocks;
 import ganymedes01.ganyssurface.ModBlocks.ISubBlocksBlock;
 import ganymedes01.ganyssurface.core.utils.Utils;
-import ganymedes01.ganyssurface.items.block.ItemColouredRedstoneBlock;
+import ganymedes01.ganyssurface.items.block.ItemBlockGeneric;
 import ganymedes01.ganyssurface.lib.Strings;
 
 import java.util.List;
@@ -31,14 +32,14 @@ import cpw.mods.fml.relauncher.SideOnly;
  *
  */
 
-public class ColouredRedstoneBlock extends BlockCompressed implements ISubBlocksBlock {
+public class ColouredRedstoneBlock extends BlockCompressed implements ISubBlocksBlock, IConfigurable {
 
 	public ColouredRedstoneBlock() {
 		super(null);
 		setHardness(5.0F);
 		setResistance(10.0F);
 		setStepSound(soundTypeMetal);
-		setBlockName(Utils.getUnlocalizedName(Strings.COLOURED_REDSTONE_BLOCK_NAME));
+		setBlockName(Utils.getUnlocalisedName(Strings.COLOURED_REDSTONE_BLOCK_NAME));
 		setBlockTextureName(Utils.getBlockTexture(Strings.COLOURED_REDSTONE_BLOCK_NAME));
 		setCreativeTab(GanysSurface.enableColouredRedstone ? GanysSurface.surfaceTab : null);
 	}
@@ -98,6 +99,11 @@ public class ColouredRedstoneBlock extends BlockCompressed implements ISubBlocks
 
 	@Override
 	public Class<? extends ItemBlock> getItemBlockClass() {
-		return ItemColouredRedstoneBlock.class;
+		return ItemBlockGeneric.class;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return GanysSurface.enableColouredRedstone;
 	}
 }
